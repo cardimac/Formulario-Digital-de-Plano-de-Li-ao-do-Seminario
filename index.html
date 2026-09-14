@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esboço de Planejamento de Lição do Seminário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --bg:#efe9dc;
+    --surface:#fffdf8;
+    --surface-alt:#f7f2e6;
+    --ink:#2a2620;
+    --ink-soft:#6b6455;
+    --accent:#2f4a3d;
+    --accent-soft:#d7e0d5;
+    --gold:#a9812e;
+    --gold-deep:#c9a961;
+    --gold-soft:#f1e6c8;
+    --line:#d8cfba;
+    --danger:#9c4b3b;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    padding:32px 16px 120px;
+  }
+  .wrap{max-width:840px;margin:0 auto;}
+
+  /* ---------- Header / Cover ---------- */
+  .cover{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px 36px;
+    margin-bottom:28px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:30px;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .cover-sub{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:20px;
+  }
+  .intro-text{
+    font-size:14px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--gold-deep);
+    border-bottom:1px solid var(--gold-deep);
+    padding:16px 0;
+    margin-bottom:26px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 20px;
+  }
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.span2{grid-column:1 / -1;}
+  label{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  label .sub{
+    font-weight:400;
+    font-style:italic;
+    color:#a39d8c;
+  }
+  .field-question label{
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  input[type=text],input[type=date],input[type=number],textarea,select{
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    background:var(--surface-alt);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    outline:none;
+    width:100%;
+  }
+  select{appearance:auto;cursor:pointer;}
+  input:focus,textarea:focus,select:focus,[contenteditable]:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  textarea{resize:vertical;min-height:64px;font-family:'Inter',sans-serif;}
+
+  .divider-note{
+    font-size:14px;
+    color:var(--ink);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 24px;
+    margin-bottom:24px;
+  }
+  .divider-note a{
+    color:#2563eb;
+    text-decoration:underline;
+  }
+  .divider-note a:hover{color:#1d4ed8;}
+
+  /* ---------- Atividades ---------- */
+  .atividade{margin-bottom:30px;}
+  .atividade-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .atividade-badge{
+    background:var(--gold-deep);
+    color:var(--ink);
+    font-weight:700;
+    font-size:15px;
+    padding:10px 20px;
+    border-radius:8px;
+  }
+  .time-chip{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:6px 12px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .time-chip input{
+    width:44px;
+    border:none;
+    background:transparent;
+    padding:0;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    text-align:right;
+  }
+  .time-chip input:focus{box-shadow:none;}
+  .remove-atividade{
+    margin-left:auto;
+    width:30px;height:30px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink-soft);
+    cursor:pointer;
+    font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .remove-atividade:hover{border-color:var(--danger);color:var(--danger);}
+
+  .campo-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    margin-bottom:16px;
+    overflow:hidden;
+  }
+  .campo-head{
+    padding:20px 26px 14px;
+  }
+  .campo-head h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:17px;
+    margin:0;
+    color:var(--ink);
+  }
+  .campo-head .campo-sub{
+    font-weight:400;
+    font-style:italic;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+
+  .toolbar{
+    display:flex;
+    gap:4px;
+    padding:10px 26px;
+    background:var(--surface-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .toolbar button{
+    width:32px;height:32px;
+    border:1px solid transparent;
+    background:transparent;
+    border-radius:6px;
+    color:var(--ink-soft);
+    font-size:14px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .toolbar button:hover{background:var(--surface);border-color:var(--line);color:var(--ink);}
+  .toolbar button.b{font-weight:800;}
+  .toolbar button.i{font-style:italic;}
+  .toolbar button.u{text-decoration:underline;}
+  .toolbar .sep{width:1px;background:var(--line);margin:4px 4px;}
+
+  .editable{
+    min-height:80px;
+    padding:16px 26px 22px;
+    font-size:14.5px;
+    outline:none;
+  }
+  .editable:empty:before{
+    content:attr(data-placeholder);
+    color:#a39d8c;
+  }
+  .editable ul{margin:0;padding-left:22px;}
+  .editable ol{margin:0;padding-left:22px;}
+
+  /* ---------- Add activity button ---------- */
+  .add-atividade-btn{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    width:100%;
+    background:var(--gold-deep);
+    color:var(--ink);
+    border:none;
+    border-radius:10px;
+    padding:14px 18px 14px 20px;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    margin-bottom:28px;
+    transition:opacity .15s ease;
+  }
+  .add-atividade-btn:hover{opacity:.9;}
+  .add-icon{
+    flex:none;
+    width:32px;height:32px;
+    border-radius:50%;
+    background:var(--ink);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+    line-height:1;
+  }
+
+  /* ---------- Total time bar ---------- */
+  .totalbar{
+    background:var(--accent);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:18px 26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .totalbar .label{font-size:13px;letter-spacing:.02em;opacity:.85;}
+  .totalbar .value{font-family:'Fraunces',serif;font-size:26px;font-weight:600;}
+
+  /* ---------- Actions ---------- */
+  .actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .actions button{
+     flex:1;
+     min-width:150px;
+     padding:14px 18px;
+     border-radius:10px;
+     border:1px solid transparent;
+     color:#fff;
+     font-family:'Inter',sans-serif;
+     font-weight:600;
+     font-size:14.5px;
+     cursor:pointer;
+     transition:opacity .15s ease, transform .15s ease;
+   }
+   .actions button:hover{
+     opacity:.9;
+     transform:translateY(-1px);
+   }
+   #btn-ver{
+     background:#2563eb;
+     border-color:#2563eb;
+   }
+   #btn-baixar{
+     background:#ea580c;
+     border-color:#ea580c;
+   }
+   #btn-compartilhar{
+     background:#16a34a;
+     border-color:#16a34a;
+   }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(20,18,14,.6);
+    display:none;
+    align-items:center;justify-content:center;
+    padding:24px;
+    z-index:50;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:#fff;
+    border-radius:14px;
+    max-width:600px;
+    width:100%;
+    max-height:88vh;
+    overflow:auto;
+    padding:24px;
+  }
+  .modal h3{
+    font-family:'Fraunces',serif;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  .modal img{width:100%;border-radius:8px;border:1px solid var(--line);display:block;}
+  .modal-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;}
+  .modal-actions button{
+    flex:1;min-width:130px;
+    padding:12px 14px;border-radius:8px;
+    border:1px solid var(--accent);
+    background:var(--accent);color:#fff;
+    font-weight:600;font-size:14px;cursor:pointer;
+  }
+  .modal-actions button.secondary{background:transparent;color:var(--accent);}
+  .modal-close{
+    background:none;border:none;color:var(--ink-soft);
+    font-size:13px;cursor:pointer;margin-top:12px;
+  }
+  .status{
+    text-align:center;font-size:13px;color:var(--ink-soft);
+    margin-top:10px;min-height:16px;
+  }
+
+  /* Hide chrome while capturing */
+  body.capturing .toolbar,
+  body.capturing .actions,
+  body.capturing .remove-atividade,
+  body.capturing .add-atividade-btn,
+  body.capturing .time-chip .hint{display:none !important;}
+  body.capturing input,
+  body.capturing textarea{background:transparent;border-color:#cfc6ad;}
+  body.capturing .editable:empty:before{content:"";}
+
+  @media(max-width:640px){
+    .grid2{grid-template-columns:1fr;}
+    .atividade-head{flex-wrap:wrap;}
+  }
+
+  /* ---------- Barra de menu (Novo / Abrir / Salvar) ---------- */
+  .menubar{
+    position:sticky;
+    top:0;
+    left:0;
+    z-index:300;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    background:var(--ink);
+    box-shadow:0 2px 10px rgba(0,0,0,.18);
+    margin-bottom:24px;
+  }
+  .menubar-inner{
+    max-width:840px;
+    margin:0 auto;
+    padding:10px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .menubar-brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:15px;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .menubar-brand .dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--gold-deep);
+    flex:none;
+  }
+  .menubar-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .menubar-btn{
+    display:flex;align-items:center;gap:6px;
+    padding:8px 13px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .menubar-btn:hover{background:rgba(255,255,255,.15);}
+  .menubar-btn-primary{
+    background:var(--gold-deep);
+    border-color:var(--gold-deep);
+    color:var(--ink);
+  }
+  .menubar-btn-primary:hover{background:#d8b876;}
+  .menubar-status-row{
+    max-width:840px;
+    margin:0 auto;
+    padding:0 16px 10px;
+  }
+  .menubar-status{
+    font-size:12.5px;
+    font-weight:600;
+    color:#cfc6ad;
+  }
+  .menubar-status.status-unsaved{color:var(--gold-soft);}
+  .menubar-status.status-saved{color:#a8d9bb;}
+  @media(max-width:640px){
+    .menubar-inner{justify-content:center;text-align:center;}
+    .menubar-actions{width:100%;justify-content:stretch;}
+    .menubar-actions .menubar-btn{flex:1;justify-content:center;}
+    .menubar-status-row{text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="menubar">
+  <div class="menubar-inner">
+    <div class="menubar-brand"><span class="dot"></span>Esboço de Lição</div>
+    <div class="menubar-actions">
+      <button type="button" id="menu-novo" class="menubar-btn" title="Começar um esboço em branco">🗋 Novo</button>
+      <button type="button" id="menu-abrir" class="menubar-btn" title="Abrir um arquivo salvo anteriormente (.json)">📂 Abrir</button>
+      <button type="button" id="menu-salvar" class="menubar-btn menubar-btn-primary" title="Salvar o preenchimento atual em um arquivo">💾 Salvar</button>
+      <input type="file" id="menu-file-input" accept="application/json,.json" style="display:none">
+    </div>
+  </div>
+  <div class="menubar-status-row">
+    <span class="menubar-status" id="menu-status">Nenhuma alteração ainda</span>
+  </div>
+</div>
+
+<div class="wrap" id="capture-area">
+
+  <div class="cover">
+    <h1>Esboço de Planejamento de Lição do Seminário</h1>
+    <div class="cover-sub">Formulário Digital para Aplicação dos Princípios do Manual do Professor e do Manual Ensinar à Maneira do Salvador: Para Todos os Que Ensinam em Casa e na Igreja</div>
+
+    <div class="intro-text">
+      O tempo que você despende ensinando uma lição do seminário pode exercer um impacto eterno sobre as pessoas a quem você ensina. Cada lição pode ajudá-las a sentir a influência do Espírito, fortalecer seu amor pelo Pai Celestial e Jesus Cristo e aumentar sua dedicação para viver o evangelho. Tenha sempre isso em mente ao preparar as aulas. Seu êxito em representar o Senhor e ensinar pelo Espírito será influenciado pelo cuidado que tiver na preparação da aula.
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="f-data">Data</label>
+        <input type="date" id="f-data">
+      </div>
+      <div class="field">
+        <label for="f-estaca">Estaca</label>
+        <input type="text" id="f-estaca" placeholder="Nome da estaca">
+      </div>
+      <div class="field">
+        <label for="f-ala">Ala</label>
+        <input type="text" id="f-ala" placeholder="Nome da ala">
+      </div>
+      <div class="field">
+        <label for="f-professor">Nome do Professor</label>
+        <input type="text" id="f-professor" placeholder="Professor(a) responsável">
+      </div>
+      <div class="field">
+        <label for="f-tema">Tema</label>
+        <input type="text" id="f-tema" placeholder="Tema da lição">
+      </div>
+      <div class="field">
+        <label for="f-tipo">Tipo de Lição</label>
+        <select id="f-tipo">
+          <option value="" disabled selected>Selecione o tipo</option>
+          <option value="Lições das Escrituras">Lições das Escrituras</option>
+          <option value="Lições de prática de domínio doutrinário">Lições de prática de domínio doutrinário</option>
+          <option value="Lições de avaliação de aprendizado">Lições de avaliação de aprendizado</option>
+          <option value="Lições de preparação para a vida">Lições de preparação para a vida</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-numero">Número da Lição</label>
+        <input type="text" id="f-numero" placeholder="Ex.: Lição 24">
+      </div>
+      <div class="field">
+        <label for="f-escritura">Escritura</label>
+        <input type="text" id="f-escritura" placeholder="Ex.: Alma 32:21">
+      </div>
+      <div class="field span2">
+        <label for="f-proposito">Propósito da Lição <span class="sub">(Conforme descrito na "visão geral" do manual do professor)</span></label>
+        <textarea id="f-proposito" placeholder="Qual é o objetivo desta aula?"></textarea>
+      </div>
+      <div class="field span2">
+        <label for="f-preparacao">Preparação do Aluno <span class="sub">(Conforme descrito na "visão geral" do manual do professor)</span></label>
+        <textarea id="f-preparacao" placeholder="O que os alunos devem preparar antes da aula?"></textarea>
+      </div>
+      <div class="field span2 field-question">
+        <label for="f-resultado">O que deve acontecer na vida das pessoas a quem ensino em decorrência desta lição?</label>
+        <textarea id="f-resultado"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider-note">
+    Antes de planejar as atividades didáticas de sua lição, lembre os princípios do <strong>"Ensino Cristão"</strong> encontrados na <strong><a href="https://www.churchofjesuschrist.org/study/manual/teaching-in-the-saviors-way-2022/01-introduction/03a-overview-of-christlike-teaching?lang=por" target="_blank" rel="noopener">"Visão geral do ensino cristão"</a></strong> no manual <strong><a href="https://www.churchofjesuschrist.org/study/manual/teaching-in-the-saviors-way-2022?lang=por" target="_blank" rel="noopener">"Ensinar à Maneira do Salvador: Para Todos os Que Ensinam em Casa e na Igreja"</a></strong>
+  </div>
+
+  <!-- Atividades didáticas -->
+  <div id="atividades"></div>
+
+  <button type="button" class="add-atividade-btn" id="btn-add-atividade">
+    Acrescentar outra atividade
+    <span class="add-icon">+</span>
+  </button>
+
+  <div class="totalbar">
+    <div>
+      <div class="label">TEMPO TOTAL PLANEJADO</div>
+    </div>
+    <div class="value" id="total-time">0 min</div>
+  </div>
+
+</div>
+
+<div class="actions">
+  <button type="button" class="secondary" id="btn-ver">Ver Imagem</button>
+  <button type="button" id="btn-baixar">Baixar Imagem</button>
+  <button type="button" id="btn-compartilhar">Compartilhar</button>
+</div>
+<div class="status" id="status"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3>Pré-visualização do Plano de Aula</h3>
+    <img id="modal-img" src="" alt="Plano de aula gerado">
+    <div class="modal-actions">
+      <button type="button" id="modal-baixar">Baixar Imagem</button>
+      <button type="button" class="secondary" id="modal-compartilhar">Compartilhar</button>
+    </div>
+    <button type="button" class="modal-close" id="modal-close">Fechar</button>
+  </div>
+</div>
+
+<script>
+// ---------- Definição dos campos de cada Atividade Didática ----------
+const CAMPOS = [
+  {
+    key: "verdade",
+    titulo: "Verdade do Evangelho que Pretendo Ensinar",
+    sub: "(Doutrina ou Princípio)",
+    placeholder: "Identifique a doutrina ou o princípio do evangelho que você deseja que os alunos compreendam e sintam. Escolha verdades que estejam fundamentadas nas escrituras e nas palavras dos profetas e que possam fortalecer a fé em Jesus Cristo e ajudá-los a se achegar a Ele."
+  },
+  {
+    key: "escrituras",
+    titulo: "Escrituras ou Textos que Pretendo Utilizar",
+    sub: "",
+    placeholder: "Selecione as escrituras, palavras dos profetas ou outros textos que serão usados para ensinar e apoiar as verdades do evangelho escolhidas. Sempre que possível, ajude os alunos a encontrar, reconhecer e compreender por si mesmos as verdades contidas nesses textos."
+  },
+  {
+    key: "perguntas",
+    titulo: "Perguntas que Pretendo Fazer",
+    sub: "",
+    placeholder: "Prepare perguntas que ajudem os alunos a pensar, buscar respostas nas escrituras, compartilhar suas ideias e reconhecer a relevância das verdades do evangelho em sua própria vida. Dê-lhes tempo para ponderar e responder e esteja disposto a ouvir suas respostas."
+  },
+  {
+    key: "auxilios",
+    titulo: "Auxílios Didáticos que Pretendo Usar",
+    sub: "(Filme, Lição com Objetos, Dinâmica de Grupo, Grupos de trabalho)",
+    placeholder: "Escolha métodos, recursos ou atividades que ajudem os alunos a compreender, sentir e aplicar as verdades ensinadas. Utilize-os com propósito, evitando que o método se torne mais importante que a doutrina ou distraia os alunos do objetivo da aula."
+  },
+  {
+    key: "convites",
+    titulo: "Convites e Bênçãos Prometidas",
+    sub: "",
+    placeholder: "Pense em um convite que ajude os alunos a agir de acordo com o que aprenderam e a aplicar o evangelho em sua vida. Quando apropriado, identifique as bênçãos prometidas pelo Senhor ao viverem essa verdade, sem prometer resultados específicos que o Senhor não tenha prometido."
+  },
+  {
+    key: "como",
+    titulo: "Como Pretendo Ensinar as Verdades do Evangelho",
+    sub: "(Filme, Lição com Objetos, Dinâmica de Grupo e etc)",
+    placeholder: "Use este campo para planejar \"como você ensinará a lição\" a fim de cumprir seu propósito. Considere as verdades do evangelho e as escrituras selecionadas, bem como as perguntas, os auxílios didáticos, os convites e as bênçãos que você preparou. Você também pode registrar aqui as \"Atividades didáticas sugeridas\" encontradas no manual do professor, bem como outras ideias de ensino apresentadas nas seções \"Instruções de ensino\", \"Recursos adicionais\" e \"Atividades complementares de aprendizado\"."
+  }
+];
+
+const atividadesContainer = document.getElementById('atividades');
+let atividadeCount = 0;
+
+/* ==================================================================
+   SALVAR / ABRIR — permite guardar o esboço preenchido em um arquivo
+   e continuar depois, mesmo fechando a aba ou trocando de aparelho.
+   ================================================================== */
+const CAMPOS_CABECALHO = [
+  'f-data','f-estaca','f-ala','f-professor','f-tema','f-tipo',
+  'f-numero','f-escritura','f-proposito','f-preparacao','f-resultado'
+];
+
+let hasUnsavedChanges = false;
+
+function updateMenuStatus(kind, extra){
+  const el = document.getElementById('menu-status');
+  if(!el) return;
+  const hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  if(kind==='salvo'){
+    el.textContent = `✔ Salvo às ${hora}`;
+    el.className = 'menubar-status status-saved';
+  } else if(kind==='aberto'){
+    el.textContent = `✔ Arquivo aberto: ${extra}`;
+    el.className = 'menubar-status status-saved';
+  } else if(kind==='alterado'){
+    el.textContent = 'Alterações não salvas — clique em "Salvar" para não perder o que já foi preenchido';
+    el.className = 'menubar-status status-unsaved';
+  } else {
+    el.textContent = 'Nenhuma alteração ainda';
+    el.className = 'menubar-status';
+  }
+}
+
+function markDirty(){
+  hasUnsavedChanges = true;
+  updateMenuStatus('alterado');
+}
+
+// Reúne todos os campos do cabeçalho + todas as atividades (incluindo
+// o conteúdo formatado — negrito, itálico, listas — de cada campo editável).
+function collectFormState(){
+  const state = {
+    _tipo: 'esboco-licao-seminario-rascunho',
+    _versao: 1,
+    _salvoEm: new Date().toISOString(),
+    cabecalho: {},
+    atividades: []
+  };
+  CAMPOS_CABECALHO.forEach(id=>{
+    const el = document.getElementById(id);
+    state.cabecalho[id] = el ? el.value : '';
+  });
+  document.querySelectorAll('.atividade').forEach(atEl=>{
+    const item = {
+      tempo: atEl.querySelector('.time-input') ? atEl.querySelector('.time-input').value : '',
+      campos: {}
+    };
+    CAMPOS.forEach(campo=>{
+      const editEl = atEl.querySelector(`.editable[id^="${campo.key}-"]`);
+      item.campos[campo.key] = editEl ? editEl.innerHTML : '';
+    });
+    state.atividades.push(item);
+  });
+  return state;
+}
+
+// Reconstrói o formulário inteiro (cabeçalho + atividades) a partir de um
+// arquivo salvo anteriormente.
+function loadFormState(state){
+  state = state || {};
+  const cab = state.cabecalho || {};
+  CAMPOS_CABECALHO.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = cab[id] || '';
+  });
+
+  atividadesContainer.innerHTML = '';
+  atividadeCount = 0;
+
+  const atividadesSalvas = (state.atividades && state.atividades.length) ? state.atividades : [{}];
+  atividadesSalvas.forEach(saved=>{
+    criarAtividade();
+    const el = atividadesContainer.lastElementChild;
+    if(saved.tempo !== undefined){
+      const timeInput = el.querySelector('.time-input');
+      if(timeInput) timeInput.value = saved.tempo || '';
+    }
+    if(saved.campos){
+      CAMPOS.forEach(campo=>{
+        const editEl = el.querySelector(`.editable[id^="${campo.key}-"]`);
+        if(editEl && saved.campos[campo.key] !== undefined){
+          editEl.innerHTML = saved.campos[campo.key] || '';
+        }
+      });
+    }
+  });
+
+  renumerarAtividades();
+  updateTotal();
+}
+
+function baixarEstadoComoArquivo(){
+  const state = collectFormState();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const tema = (document.getElementById('f-tema').value || '').trim();
+  const base = tema ? tema.replace(/[^a-zA-Z0-9À-ÿ ]/g,'').replace(/\s+/g,'-') : 'esboco-de-licao';
+  link.download = `${base}-rascunho.json`;
+  link.href = url;
+  link.click();
+  URL.revokeObjectURL(url);
+  hasUnsavedChanges = false;
+  updateMenuStatus('salvo');
+}
+
+function abrirArquivoSalvo(file){
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    try{
+      const state = JSON.parse(ev.target.result);
+      loadFormState(state);
+      hasUnsavedChanges = false;
+      updateMenuStatus('aberto', file.name);
+    }catch(err){
+      alert('Não foi possível abrir este arquivo. Verifique se é um arquivo .json salvo por este mesmo formulário (usando o botão "Salvar").');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function renumerarAtividades(){
+  document.querySelectorAll('.atividade').forEach((el, idx) => {
+    el.querySelector('.atividade-badge').textContent = `Atividade Didática ${idx + 1}`;
+  });
+}
+
+function criarAtividade(){
+  atividadeCount += 1;
+  const id = atividadeCount;
+
+  const el = document.createElement('div');
+  el.className = 'atividade';
+  el.setAttribute('data-id', id);
+
+  let camposHtml = '';
+  CAMPOS.forEach(campo => {
+    const fieldId = `${campo.key}-${id}`;
+    camposHtml += `
+      <div class="campo-card">
+        <div class="campo-head">
+          <h3>${campo.titulo}${campo.sub ? ` <span class="campo-sub">${campo.sub}</span>` : ''}</h3>
+        </div>
+        <div class="toolbar" data-target="${fieldId}">
+          <button type="button" class="b" data-cmd="bold" title="Negrito">B</button>
+          <button type="button" class="i" data-cmd="italic" title="Itálico">I</button>
+          <button type="button" class="u" data-cmd="underline" title="Sublinhado">U</button>
+          <div class="sep"></div>
+          <button type="button" data-cmd="insertUnorderedList" title="Lista com marcadores">&#8226;&#8226;&#8226;</button>
+          <button type="button" data-cmd="insertOrderedList" title="Lista numerada">1.2.3</button>
+          <div class="sep"></div>
+          <button type="button" data-cmd="removeFormat" title="Limpar formatação">&#10005;</button>
+        </div>
+        <div class="editable" id="${fieldId}" contenteditable="true" data-placeholder="${campo.placeholder.replace(/"/g,'&quot;')}"></div>
+      </div>
+    `;
+  });
+
+  el.innerHTML = `
+    <div class="atividade-head">
+      <div class="atividade-badge">Atividade Didática ${id}</div>
+      <div class="time-chip">
+        <span class="hint">⏱</span>
+        <input type="number" min="0" step="1" class="time-input" placeholder="0">
+        <span>min</span>
+      </div>
+      <button type="button" class="remove-atividade" title="Remover atividade">&#10005;</button>
+    </div>
+    ${camposHtml}
+  `;
+
+  atividadesContainer.appendChild(el);
+
+  el.querySelector('.remove-atividade').addEventListener('click', () => {
+    el.remove();
+    renumerarAtividades();
+    updateTotal();
+    markDirty();
+  });
+}
+
+// Cria a primeira atividade ao carregar
+criarAtividade();
+
+document.getElementById('btn-add-atividade').addEventListener('click', () => { criarAtividade(); markDirty(); });
+
+// ---------- Novo / Abrir / Salvar ----------
+document.getElementById('menu-salvar').addEventListener('click', () => {
+  baixarEstadoComoArquivo();
+});
+
+document.getElementById('menu-abrir').addEventListener('click', () => {
+  if(hasUnsavedChanges && !confirm('Você tem alterações não salvas. Se abrir outro arquivo agora, elas serão perdidas. Deseja continuar?')){
+    return;
+  }
+  document.getElementById('menu-file-input').click();
+});
+
+document.getElementById('menu-file-input').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  abrirArquivoSalvo(file);
+  e.target.value = '';
+});
+
+document.getElementById('menu-novo').addEventListener('click', () => {
+  if(hasUnsavedChanges && !confirm('Você tem alterações não salvas. Deseja começar um esboço novo em branco mesmo assim?')){
+    return;
+  }
+  hasUnsavedChanges = false;
+  location.reload();
+});
+
+// Marca como "alterado" em qualquer edição: campos de texto, selects,
+// tempo das atividades e conteúdo dos campos com formatação (negrito etc).
+document.addEventListener('input', markDirty);
+document.addEventListener('change', markDirty);
+
+window.addEventListener('beforeunload', function(e){
+  if(hasUnsavedChanges){
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+// ---------- Toolbar (delegação de eventos para funcionar em elementos dinâmicos) ----------
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.toolbar button');
+  if(!btn) return;
+  const bar = btn.closest('.toolbar');
+  const targetId = bar.getAttribute('data-target');
+  const target = document.getElementById(targetId);
+  target.focus();
+  document.execCommand(btn.getAttribute('data-cmd'), false, null);
+  markDirty();
+});
+
+// ---------- Cálculo do tempo total ----------
+function updateTotal(){
+  let total = 0;
+  document.querySelectorAll('.time-input').forEach(inp => {
+    const v = parseInt(inp.value, 10);
+    if(!isNaN(v)) total += v;
+  });
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  const label = h > 0 ? `${h}h ${m}min` : `${m} min`;
+  document.getElementById('total-time').textContent = label;
+}
+document.addEventListener('input', (e) => {
+  if(e.target.classList.contains('time-input')) updateTotal();
+});
+updateTotal();
+
+// ---------- Geração de imagem ----------
+const statusEl = document.getElementById('status');
+const overlay = document.getElementById('modal-overlay');
+const modalImg = document.getElementById('modal-img');
+let lastDataUrl = null;
+
+function setStatus(msg){
+  statusEl.textContent = msg;
+  if(msg) setTimeout(() => { if(statusEl.textContent === msg) statusEl.textContent = ''; }, 4000);
+}
+
+async function generateImage(){
+  setStatus('Gerando imagem, aguarde...');
+  document.body.classList.add('capturing');
+  const target = document.getElementById('capture-area');
+  try{
+    const canvas = await html2canvas(target, {
+      scale: 2,
+      backgroundColor: '#efe9dc',
+      useCORS: true
+    });
+    lastDataUrl = canvas.toDataURL('image/png');
+    return lastDataUrl;
+  } finally {
+    document.body.classList.remove('capturing');
+  }
+}
+
+function fileNameForToday(){
+  const tema = document.getElementById('f-tema').value.trim();
+  const base = tema ? tema.replace(/[^a-zA-Z0-9À-ÿ ]/g,'').replace(/\s+/g,'-') : 'esboco-de-licao';
+  return `${base}.png`;
+}
+
+async function downloadImage(){
+  const url = await generateImage();
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileNameForToday();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setStatus('Imagem baixada com sucesso.');
+}
+
+async function shareImage(){
+  const url = await generateImage();
+  try{
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const file = new File([blob], fileNameForToday(), { type: 'image/png' });
+    if(navigator.canShare && navigator.canShare({ files: [file] })){
+      await navigator.share({
+        files: [file],
+        title: 'Esboço de Planejamento de Lição do Seminário',
+        text: 'Segue o esboço de planejamento da lição.'
+      });
+      setStatus('Compartilhado com sucesso.');
+      return;
+    }
+  } catch(err){
+    // fall through to fallback below
+  }
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileNameForToday();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setStatus('Seu navegador não permite anexar a imagem automaticamente. A imagem foi baixada — anexe-a manualmente no WhatsApp ou outro app.');
+  window.open('https://wa.me/?text=Segue%20o%20esbo%C3%A7o%20de%20planejamento%20da%20li%C3%A7%C3%A3o%20do%20semin%C3%A1rio%20(imagem%20em%20anexo).', '_blank');
+}
+
+document.getElementById('btn-ver').addEventListener('click', async () => {
+  const url = await generateImage();
+  modalImg.src = url;
+  overlay.classList.add('open');
+});
+document.getElementById('btn-baixar').addEventListener('click', downloadImage);
+document.getElementById('btn-compartilhar').addEventListener('click', shareImage);
+
+document.getElementById('modal-baixar').addEventListener('click', downloadImage);
+document.getElementById('modal-compartilhar').addEventListener('click', shareImage);
+document.getElementById('modal-close').addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('open'); });
+</script>
+</body>
+</html>
